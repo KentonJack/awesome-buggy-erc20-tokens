@@ -9,12 +9,27 @@
             "owner-decrease-balance-by-mint-by-overflow": true
         }
     },
+    "0x003f79D7Be15dC1aD90Ce00E6eA68F335e2B789B": {
+        "issues": {
+            "owner-decrease-balance-by-mint-by-overflow": true
+        }
+    },
     "0x00430f32B8e77A456d0Ab7E6f1Dc1B84F4ae62E0": {
         "issues": {
             "owner-decrease-balance-by-mint-by-overflow": true
         }
     },
+    "0x004Dcfc79b28Ae0D52C2C013a328f84b433a1829": {
+        "issues": {
+            "owner-decrease-balance-by-mint-by-overflow": true
+        }
+    },
     "0x00B9034425e357bF61b4ABEb22299EC4A62C725B": {
+        "issues": {
+            "owner-decrease-balance-by-mint-by-overflow": true
+        }
+    },
+    "0x012bc399c3E8B75A506c9ff2B7ad413641F33102": {
         "issues": {
             "owner-decrease-balance-by-mint-by-overflow": true
         }
@@ -194,6 +209,11 @@
             "owner-decrease-balance-by-mint-by-overflow": true
         }
     },
+    "0x11838ECe89439C4f0224Bc7b9f76E07721d99f9e": {
+        "issues": {
+            "owner-decrease-balance-by-mint-by-overflow": true
+        }
+    },
     "0x118770Fae5b614552b85FDB5297eB3ed5b5eCCdd": {
         "issues": {
             "owner-decrease-balance-by-mint-by-overflow": true
@@ -345,6 +365,11 @@
         }
     },
     "0x1fcE19a5b3b1f7Fe38D18619B8183694C8A54850": {
+        "issues": {
+            "owner-decrease-balance-by-mint-by-overflow": true
+        }
+    },
+    "0x2066a2E0cd7f19589f582E2FC9Af9669Cc9e02F1": {
         "issues": {
             "owner-decrease-balance-by-mint-by-overflow": true
         }
@@ -515,6 +540,11 @@
         }
     },
     "0x30181C9C30D9b54ccF4ca9F295Fa1dee807f36fc": {
+        "issues": {
+            "owner-decrease-balance-by-mint-by-overflow": true
+        }
+    },
+    "0x301A0501c08E347B062B3c928FD4d0155F367855": {
         "issues": {
             "owner-decrease-balance-by-mint-by-overflow": true
         }

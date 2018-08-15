@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """ 
 Use this script to generate token list in csv/json folder
 
@@ -40,7 +41,7 @@ write_csv = True
 
 def export_data(output_file, data_dict):
     csv_saved = output_file + ".o.csv"
-    csv = open("./csv/" + csv_saved, 'w')
+    csv = open("./csv/" + csv_saved, 'w', encoding = 'utf-8')
     csv.write(csv_header)
     for addr in data_dict:
         detail = data_dict[addr]
@@ -72,7 +73,7 @@ def export_data(output_file, data_dict):
 
 def export_data_summary(output_file, data_dict):
     csv_saved = output_file + ".csv"
-    csv = open("./" + csv_saved, 'w')
+    csv = open("./" + csv_saved, 'w', encoding = 'utf-8')
     csv.write(csv_header)
     for addr in data_dict:
         detail = data_dict[addr]
@@ -132,7 +133,7 @@ for input_file in input_files:
 
             if addr in TOKEN_DETAIL_DICT:
                 token_detail = copy.deepcopy(TOKEN_DETAIL_DICT[addr])
-                print("addr in top token:", addr, "detail:", token_detail)
+                # print("addr in top token:", addr, "detail:", token_detail)
                 
                 TOP_ONLY_FINAL_DICT[addr] = token_detail
                 name = token_detail['name']
@@ -140,7 +141,7 @@ for input_file in input_files:
                 token_detail['info'] = "_"
                 token_detail['issues'] = {issue_type: True}
                 cnt += 1
-                print(f"{cnt}: {addr},{issue_type},{name},{symbol},_")
+                # print(f"{cnt}: {addr},{issue_type},{name},{symbol},_")
 
                 FINAL_DICT[addr] = TOP_ONLY_FINAL_DICT[addr]
 
@@ -161,7 +162,7 @@ for input_file in input_files:
 
                 try:
                     old_issues = ALL_IN_ONE_DICT[addr]['issues']
-                    ALL_IN_ONE_DICT[addr]['issues'] = {**old_issues, **token_detail['issues']}
+                    ALL_IN_ONE_DICT[addr]['issues'] = {**old_issues, **FINAL_DICT[addr]['issues']}
                 except KeyError:
                     ALL_IN_ONE_DICT[addr] = {'issues': {issue_type: True}}
 

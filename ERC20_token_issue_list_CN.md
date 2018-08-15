@@ -9,6 +9,9 @@
 本文收录了token合约中目前已披露的安全风险问题，旨在帮助大家快速了解这些安全风险，提高安全意识，避免重复踩坑，杜绝不必要的损失。同时也建议大家在合约开发过程中参考安全标准的开发指导说明和规范源码，如「[以太坊智能合约 —— 最佳安全开发指南](https://github.com/ConsenSys/smart-contract-best-practices)」。
 
 ## 最近更新
+* 2018-08-13，新增问题分类：constructor-naming-error
+* 2018-07-31，新增问题分类：getToken-anyone
+* 2018-07-25，新增问题分类：fake-burn
 * 2018-07-14，新增问题分类：constructor-mistyping
 * 2018-07-12，新增问题分类：check-effect-inconsistency
 * 2018-06-26，新增问题分类：allowAnyone，no-allowance-verify，re-approve，no-Approval
@@ -55,6 +58,8 @@
   - [A21. check-effect-inconsistency](#a21-check-effect-inconsistency)
   - [A22. constructor-mistyping](#a22-constructor-mistyping)
   - [A23. fake-burn](#a23-fake-burn)
+  - [A24. getToken-anyone](#a24-getToken-anyone)
+  - [A25. constructor-naming-error](#a25-constructor-naming-error)
 
 - [B.不规范问题列表](#b不规范问题列表)
 
@@ -1303,18 +1308,79 @@
     }
 ```
 
-问题合约代码 `burnWithDecimals()` 函数中 `10 ** _dec` 这一乘方操作存在整数溢出漏洞，可使计算结果为 `0`。若 `_dec` 传入值大于 `255`，则最终 `_value` 值会被更新为 `0`。
+   问题合约代码 `burnWithDecimals()` 函数中 `10 ** _dec` 这一乘方操作存在整数溢出漏洞，可使计算结果为 `0`。若 `_dec` 传入值大于 `255`，则最终 `_value` 值会被更新为 `0`。
 
 - 问题合约列表
 
   *  OnPlace (OPL)
 
-    [more...](csv/fake-burn.o.csv)
+        [more...](csv/fake-burn.o.csv)
 
 
 - 相关链接
 
     - [震惊！利好变利空，烧币也能作假！](https://mp.weixin.qq.com/s/-4d3OD0M_a0xGGADNzi7Xw)
+
+### A24. getToken-anyone
+
+- 问题描述
+
+    `getToken()` 函数的作用是给调用者的账户余额增加数量为 `value` 的 Token，`value` 值由调用者传入。通常合约中增发 Token 的函数仅 owner 可以调用，但该合约中 getToken() 函数并未设置调用权限，并且该方法未标明可见性，默认为 public，也就是说，任何人都可以通过调用这个函数来任意增加自己账户上的 Token。
+
+- 错误的代码实现
+
+    ```js
+    function getToken(uint256 _value) returns (bool success){
+        uint newTokens = _value;
+        balances[msg.sender] = balances[msg.sender] + newTokens;
+    }
+    ```
+
+- 问题合约列表
+
+  *  AMORCOIN (AMR)
+
+        [more...](csv/getToken-anyone.o.csv)
+
+- 相关链接
+
+    - [严重getToken函数随意印币漏洞：任何人可给自己的账号虚增余额](https://mp.weixin.qq.com/s/b-XQQ7n8bArO8PZ2mFO3vg)
+
+### A25. constructor-naming-error
+
+- 问题描述
+
+    开发者在声明构造函数时,即没有使用`constructor()`，也没有使用与合约名同名的函数名。而是使用了另外的函数名命名的函数作为构造函数，使得该函数可以被任意调用。
+
+- 错误的代码实现
+
+    ```js
+    contract Angelglorycoin {
+
+        /**
+        * Constructor function
+        *
+        * Initializes contract with initial supply tokens to the creator of the contract
+        */
+        function TokenERC20(
+            uint256 initialSupply,
+            string Angelglorycoin,
+            string AGC
+        ) public {
+            totalSupply = 1000000000000000000;  // Update total supply with the decimal amount
+            balanceOf[msg.sender] = totalSupply;                // Give the creator all initial tokens
+            name = "Angelglorycoin";                                   // Set the name for display purposes
+            symbol = "AGC";                               // Set the symbol for display purposes
+        }
+    }
+    ```
+
+- 问题合约列表
+
+  *  Angelglorycoin (AGC)
+
+        [more...](csv/constructor-naming-error.o.csv)
+
 
 ## B.不规范问题列表
 
@@ -1438,7 +1504,7 @@
 
     * CUBE (AUTO) 
 
-      [more...](https://github.com/sec-bit/awesome-buggy-erc20-tokens/blob/master/csv/transferfrom-no-return.o.csv)
+      [more...](https://github.com/sec-bit/awesome-buggy-erc20-tokens/blob/master/csv/transferFrom-no-return.o.csv)
 
 * 相关链接
 
